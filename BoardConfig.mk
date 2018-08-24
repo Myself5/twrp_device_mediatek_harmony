@@ -46,3 +46,32 @@ BOARD_RECOVERY_SWIPE := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
+
+# MultiROM configuration
+MR_DEVICE_HOOKS_VER := 5
+MR_DEVICE_BOOTDEVICE := /dev/block/platform/mtk-msdc.0/11120000.MSDC0
+MR_DPI := mdpi
+MR_DPI_FONT := 340
+MR_ENCRYPTION := true
+MR_FSTAB := device/mediatek/harmony/recovery/etc/twrp.fstab
+# MR_INIT_DEVICES := $(DEVICE_PATH)/multirom/mr_init_devices.c
+MR_INPUT_TYPE := type_a
+MR_KEXEC_MEM_MIN := 0x86000000
+MR_NO_KEXEC := enabled
+MR_PIXEL_FORMAT := "RGBA_8888"
+MR_UNIFIED_TABS := true
+MR_USE_DEBUGFS_MOUNT := true
+MR_USE_MROM_FSTAB := true
+MR_USE_DEBUG_ADB := true
+
+# MultiROM build
+DEVICE_RESOLUTION := 400x400
+TARGET_RECOVERY_IS_MULTIROM := true
+
+# MultiROM versioning
+ifeq ($(MR_REC_VERSION),)
+MR_REC_VERSION := $(shell date -u +%Y%m%d)
+endif
+
+# MultiROM version tag
+BOARD_MKBOOTIMG_ARGS += --board mrom$(MR_REC_VERSION)
